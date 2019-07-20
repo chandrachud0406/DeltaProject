@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Exam site</title>
+    <link rel="stylesheet" href="/styles/home.css" type="text/css">
+</head>
+
+<body>
+    <div class="flash-message" role="alert">
+        <%= message %>
+    </div>
+    <div class="login-form__logo-container">
+        <form class="login-form" action="/student/signup" method="POST">
+            <div class="login-form__logo-container">
+                <img src="/styles/images/student.svg">
+            </div>
+            <div class="login-form__content">
+                <div class="login-form__header">Create a new account</div>
+                <input class="login-form__input" type="text" name="username" placeholder="Username">
+                <input class="login-form__input" type="password" name="password" placeholder="Password">
+                <button class="login-form__button" type="submit">Sign Up</button>
+                <div class="login-form__links">
+                    <a class="login-form__link" href="/student/login">Already a User? Login here</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
