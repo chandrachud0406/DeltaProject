@@ -2,9 +2,12 @@ var express = require('express');
 var session = require('express-session');
 var connectFlash = require('connect-flash');
 var cookieParser = require('cookie-parser');
+var mongoose = require('mongoose');
+var MongoStore = require('connect-mongo')(session);
 var loginRoutes = require('./routes/loginRoutes');
-var dashboardRoutes = require('./routes/dashboardRoutes');
-var multer = require('multer');
+var teacherDashboardRoutes = require('./routes/teacherDashboardRoutes');
+var studentDashboardRoutes = require('./routes/studentDashboardRoutes');
+var multer = require('multer')
 
 var app = express();
 var hour = 3600000000;
@@ -15,13 +18,17 @@ app.use(express.static(__dirname + '/public'));
 //set up a session
 app.use(session({
     secret: 'random-secret',
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     cookie: {
-        secure: app.get('env') === 'production',
-        expires: new Date(Date.now() + hour)
-    }
+        maxAge: 24 * 60 * 60 * 1000 
+    },
+    store:new MongoStore({
+        mongooseConnection: mongoose.connection,
+        ttl: 24 * 60 * 60
+    })
 }));
+
 
 app.use(express.json());
 
@@ -61,18 +68,8 @@ function checkFileType(file, cb){
 
 //Route controller
 loginRoutes(app);
-dashboardRoutes(app);
-
-// app.post('/upload',  function(req, res){
-//     upload(req, res, function(err){
-//         if(err){
-//             res.render('', {msg: err});
-//         } else {
-//          console.log(req.file);
-//          res.redirect()   
-//         }
-//     })
-// });
+teacherDashboardRoutes(app);
+studentDashboardRoutes(app);
 
 
 //listening to 3000

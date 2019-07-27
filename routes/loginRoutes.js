@@ -4,16 +4,15 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var connectFlash = require('connect-flash');
 
-
 var saltRounds = 10;
 
 //Connect to database
 mongoose.connect('mongodb://localhost/examsapp',
-    {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useFindAndModify: false
-    });
+{
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+});
 
 //body parser
 var urlEncodedParser = bodyParser.urlencoded({ extended: false });
@@ -21,6 +20,7 @@ var urlEncodedParser = bodyParser.urlencoded({ extended: false });
 //importing schemas
 var Student = require('../models/student');
 var Teacher = require('../models/teacher');
+
 
 module.exports = function (app) {
 
@@ -50,14 +50,8 @@ module.exports = function (app) {
 
     //Student Login page
     app.get('/student/login', function (req, res) {
+        console.log(req.flash('info'));
         res.render('studentLogin', { message: req.flash('info') });
-    });
-
-    //Logout page
-    app.get('/logout', function (req, res) {
-
-        req.session.user = "";
-        res.redirect('/');
     });
 
     //to Create a new student with hashed password
@@ -90,7 +84,7 @@ module.exports = function (app) {
             }
             else {
                 req.flash('info', 'username already exists');
-                res.redirect('studentSignup');
+                res.redirect('/student/signup');
             }
         });
     });
@@ -213,7 +207,7 @@ module.exports = function (app) {
                                 console.log(err);
                             })
 
-                            //console.log(req.session);
+                            console.log(req.session);
 
                             res.redirect('/teacher/dashboard');
                         }
@@ -230,13 +224,11 @@ module.exports = function (app) {
                 res.redirect('/teacher/signup');
             }
         });
-
     });
 
     app.get('/logout', function (req, res) {
-
-        req.session.user = "";
-        res.redirect('/');
+        req.session.destroy();
+        res.redirect("/");
     });
 
     //Middleware to check whether the user has logged in

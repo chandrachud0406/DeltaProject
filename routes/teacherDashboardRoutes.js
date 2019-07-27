@@ -28,23 +28,10 @@ var Ques = require('../models/questions');
 
 module.exports = function (app) {
 
-    app.get('/student/dashboard', urlEncodedParser, async function (req, res) {
-        //console.log(req.session);
-        try {
-            var currentStud = await Student.findOne({ username: req.session.user.username });
-            //console.log(currentStud);
-
-            res.render('studentDashboard', { user: currentStud });
-        } catch (err) {
-            console.log(err);
-        }
-    });
-
     app.get('/teacher/dashboard', urlEncodedParser, async function (req, res) {
         //console.log(req.session);
         try {
             var currentUser = await Teacher.findOne({ username: req.session.user.username });
-
             res.render('teacherDashboard', { user: currentUser });
         } catch (err) {
             console.log(err);
@@ -86,9 +73,9 @@ module.exports = function (app) {
     app.get('/test/:tid/edit', urlEncodedParser, async function (req, res) {
         try {
             console.log('created test');
-            //var userID = req.session.user._id;
-            //var currentUser = await Teacher.findById(userID).populate("tests");
-            //console.log(req.params.tid);
+            var userID = req.session.user._id;
+            var currentUser = await Teacher.findById(userID).populate("tests");
+            console.log(req.params.tid);
             var currentTest = await Test.findById(req.params.tid).populate("questions");
             res.render('teacherTestEdit', { test: currentTest });
 
@@ -155,6 +142,16 @@ module.exports = function (app) {
 
                 console.log(req.body.type);
 
+                if(req.body.type == '1' || req.body.type == '4') {
+                    currentQues.marksPerCA = 4;
+                    currentQues.marksPerWA = -2;
+                }
+
+                if(req.body.type == '2') {
+                    currentQues.marksPerCA = 3;
+                    currentQues.marksPerWA = 0;
+                }
+
                 if (req.body.type == '0' || req.body.type == '1') {
                     currentQues.options[0] = req.body.op1;
                     currentQues.options[1] = req.body.op2;
@@ -169,8 +166,17 @@ module.exports = function (app) {
                     currentQues.files[2] = (req.files[2].path).slice(6);
                     currentQues.files[3] = (req.files[3].path).slice(6);
                 }
+
+                currentQues.correctAnswers[0] = req.body.boolArray[0];
+                currentQues.correctAnswers[1] = req.body.boolArray[1];
+                currentQues.correctAnswers[2] = req.body.boolArray[2];
+                currentQues.correctAnswers[3] = req.body.boolArray[3];
+
+                currentQues.markModified('correctAnswers');
                 currentQues.markModified('options');
                 currentQues.markModified('files');
+
+                console.log(currentQues);
                 currentQues.save().then(function (user) {
                     //console.log(user);
                 });
@@ -189,8 +195,6 @@ module.exports = function (app) {
 
             var currentTest = await Test.findById(req.params.tid);
             currentTest.topic = req.body['test-topic'];
-            currentTest.marksPerCA = req.body['test-ca'];
-            currentTest.marksPerWA = req.body['test-wa'];
             currentTest.duration = req.body['test-duration'];
 
             currentTest = await currentTest.save();

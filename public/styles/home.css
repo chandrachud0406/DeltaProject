@@ -88,13 +88,3 @@
             color: #354d96;
             text-decoration: none;
         }
-
-        .flash-message {
-            margin-left:800px;
-            font-size: 24px;
-            background-color:rgb(237, 134, 132);
-            color:white;
-            text-align: center;
-            border-radius:10px;
-            width:200px;
-        }

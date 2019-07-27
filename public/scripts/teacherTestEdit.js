@@ -1,19 +1,25 @@
+var lastClicked = document.createElement('button');
+lastClicked.style.background = 'green';
+
 document.getElementById("create-ques").addEventListener('click', function (event) {
     //console.log(`create clicked ${event.target}`);
+    //    lastClicked.click();
     createQn();
 });
 
-var lastClicked = document.querySelector('footer');
 document.getElementById('queslist').addEventListener('click', function (event) {
 
     var quesID = event.target.id;
     //console.log(event.target);
     //console.log(event.target.nodeName);
-    console.log('gjsdkbgsbdgdsbg1234');
-    if (event.target.nodeName == 'BUTTON') {
-        lastClicked.style = '#c4bdbd';
-        event.target.style.background = 'green';
-        lastClicked = event.target;
+    if (event.target.className == 'dot') {
+        if (lastClicked.style.background === 'green') {
+            lastClicked.style.background = '#c4bdbd';
+            console.log(lastClicked.style.background + '$$$' + lastClicked.textContent);
+            event.target.style.background = 'green';
+            lastClicked = event.target;
+            console.log(lastClicked.style.background + '$$$' + lastClicked.textContent);
+        }
     }
 
     event.stopPropagation();
@@ -21,6 +27,20 @@ document.getElementById('queslist').addEventListener('click', function (event) {
     //event.preventDefault();
     viewQn(quesID);
 });
+
+
+window.onload = clickFirst();
+function clickFirst() {
+
+    var qns = document.getElementsByClassName('dot');
+    //console.log(qns);
+
+    for (var i = 0; i < qns.length; i++) {
+        if (qns[i].textContent == 1) {
+            qns[i].click();
+        }
+    }
+}
 
 function createQn() {
     var createQ = document.getElementById("create-ques");
@@ -48,7 +68,16 @@ function createQn() {
 }
 
 var currentOptions = ['option1', 'option2', 'option3', 'option4'];
+var boolOptions = [false, false, false, false];
 var currentImages = ['/styles/images/dummyimage.png', '/styles/images/dummyimage.png', '/styles/images/dummyimage.png', '/styles/images/dummyimage.png'];
+
+function setOptions() {
+    document.getElementById('op1').checked = boolOptions[0];
+    document.getElementById('op2').checked = boolOptions[1];
+    document.getElementById('op3').checked = boolOptions[2];
+    document.getElementById('op4').checked = boolOptions[3];
+}
+
 function viewQn(quesID) {
     //console.log(quesID);
     var questionSpace = document.getElementById("main");
@@ -64,13 +93,14 @@ function viewQn(quesID) {
     fetch(url).then(function (res) {
         return res.json();
     }).then(function (ques) {
-        questionNo.textContent = "Question no:" + ques.position;
+        questionNo.textContent = "Question no: " + ques.position;
         questionText.value = ques.question;
 
         if (ques.type == 0) {
             questionType.value = ques.type;
             questionTitleType.textContent = 'Single Correct Type'
             currentOptions = ques.options;
+            boolOptions = ques.correctAnswers;
             console.log(currentOptions);
             questionType.dispatchEvent(new Event('change'));
 
@@ -78,32 +108,40 @@ function viewQn(quesID) {
             questionType.value = ques.type;
             questionTitleType.textContent = 'Multiple Correct Type'
             currentOptions = ques.options;
+            boolOptions = ques.correctAnswers;
             console.log(currentOptions);
             questionType.dispatchEvent(new Event('change'));
 
         } else if (ques.type == 2) {
             questionType.value = ques.type;
             questionTitleType.textContent = 'Numerical';
+            boolOptions = ques.correctAnswers;
             questionType.dispatchEvent(new Event('change'));
 
         } else if (ques.type == 3) {
             questionType.value = ques.type;
+            boolOptions = ques.correctAnswers;
             currentImages = ques.files;
             questionTitleType.textContent = 'Single Correct Type'
-
             console.log(currentImages);
             questionType.dispatchEvent(new Event('change'));
 
         } else if (ques.type == 4) {
             questionType.value = ques.type;
+            boolOptions = ques.correctAnswers;
             currentImages = ques.files;
             questionTitleType.textContent = 'Multiple Correct Type'
-
             console.log(currentImages);
             questionType.dispatchEvent(new Event('change'));
 
         } else {
             questionType.value = ques.type;
+            questionTitleType.textContent = 'None';
+
+            currentOptions = ['option1', 'option2', 'option3', 'option4'];
+            boolOptions = [false, false, false, false];
+            currentImages = ['/styles/images/dummyimage.png', '/styles/images/dummyimage.png', '/styles/images/dummyimage.png', '/styles/images/dummyimage.png'];
+
             questionType.dispatchEvent(new Event('change'));
         }
 
@@ -111,7 +149,16 @@ function viewQn(quesID) {
         console.log(err);
     })
 }
+function arraysEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length)
+        return false;
+    for (var i = arr1.length; i--;) {
+        if (arr1[i] !== arr2[i])
+            return false;
+    }
 
+    return true;
+}
 
 document.getElementById('answer-type').addEventListener('change', function (e) {
     var newOption = e.target.value;
@@ -121,7 +168,9 @@ document.getElementById('answer-type').addEventListener('change', function (e) {
 });
 
 function setAnswerType(option) {
+    if (arraysEqual(currentOptions, ['option1', 'option2', 'option3', 'option4']) == false) {
 
+    }
     var x = ``;
     if (option == "0") {
         //  console.log(option);
@@ -145,38 +194,40 @@ function setAnswerType(option) {
         <input type="text" name="option4" value="${currentOptions[3]}" >
         `;
     } else if (option == "2") {
-        x += `<input type="number" id="op1">
+        x += `<p> Numerical </p>
+        <input type="number" id="op1" value=${boolOptions[0]}>
         `;
-     } else if (option == "3") {
+    } else if (option == "3") {
         x += `<p>A) </p><input type="radio" name="op" id="op1" >
-        <input type="file" />
+        <input type="file" class="imgfile" required/>
         <img src="${currentImages[0]}" width="200" height="150">       
         <p>B) </p><input type="radio" name="op" id="op2" >
-        <input type="file" />
+        <input type="file" class="imgfile" required/>
         <img src="${currentImages[1]}" width="200" height="150">
         <p>C) </p><input type="radio" name="op" id="op3" >
-        <input type="file" />
+        <input type="file" class="imgfile" required/>
         <img src="${currentImages[2]}" width="200" height="150">
         <p>D) </p><input type="radio" name="op" id="op4" >
-        <input type="file" />
+        <input type="file" class="imgfile" required/>
         <img src="${currentImages[3]}" width="200" height="150">
         `;
     } else if (option == "4") {
         x += `<p>A) </p><input type="checkbox" id="op1" >
-        <input type="file" />
+        <input type="file" class="imgfile"  required/>
         <img src="${currentImages[0]}" width="200" height="150">       
         <p>B) </p><input type="checkbox" id="op2" >
-        <input type="file" />
+        <input type="file" class="imgfile" required/>
         <img src="${currentImages[1]}" width="200" height="150">
         <p>C) </p><input type="checkbox" id="op3" >
-        <input type="file" />
+        <input type="file" class="imgfile" required/>
         <img src="${currentImages[2]}" width="200" height="150">
         <p>D) </p><input type="checkbox" id="op4" >
-        <input type="file" />
+        <input type="file" class="imgfile" required/>
         <img src="${currentImages[3]}" width="200" height="150">
     `;
     }
     document.getElementById('answers').innerHTML = x;
+    setOptions();
 }
 
 
@@ -186,7 +237,6 @@ document.querySelector('#main form').addEventListener('submit', function (event)
     var questionText = document.querySelector("#question-text").value;
     var questionType = document.querySelector("#answer-type").value;
     var images = document.querySelectorAll('input[type="file"]');
-
     //console.log(images);
     if (questionType == 0 || questionType == 1) {
         var option1 = document.getElementsByName("option1")[0].value;
@@ -203,7 +253,18 @@ document.querySelector('#main form').addEventListener('submit', function (event)
         }
     }
 
+    if (questionType != 2) {
+        var boolOp1 = document.getElementById('op1').checked;
+        var boolOp2 = document.getElementById('op2').checked;
+        var boolOp3 = document.getElementById('op3').checked;
+        var boolOp4 = document.getElementById('op4').checked;
+        var boolArray = [boolOp1, boolOp2, boolOp3, boolOp4];
+    }
     //console.log(formData.getAll('myFiles'));
+    if (questionType == 2) {
+        var boolOp1 = document.getElementById('op1').value;
+        var boolArray = [boolOp1, false, false, false];
+    }
 
     var quesData = {
         text: questionText,
@@ -211,7 +272,8 @@ document.querySelector('#main form').addEventListener('submit', function (event)
         op1: option1,
         op2: option2,
         op3: option3,
-        op4: option4
+        op4: option4,
+        boolArray: boolArray
     }
 
     formData.append('ques', JSON.stringify(quesData));
@@ -232,14 +294,14 @@ document.querySelector('#main form').addEventListener('submit', function (event)
 
     fetch(url, options)
         .then(res => res.json())
-        .then(function(ques){
+        .then(function (ques) {
             console.log(lastClicked.style.background);
             lastClicked.click();
-            console.log(ques)})
+            console.log(ques)
+        })
         .catch(err => console.log(err));
 
     event.preventDefault();
 
 });
 
-//document.getElementById('test-title').addEventListener('k')
