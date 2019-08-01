@@ -13,11 +13,11 @@ var quesSchema = new mongoose.Schema({
         default: ['option1', 'option2', 'option3', 'option4']
     },
     marksPerCA: {
-        type:Number,
+        type: Number,
         default: 3
     },
     marksPerWA: {
-        type:Number,
+        type: Number,
         default: -1
     },
     type: {

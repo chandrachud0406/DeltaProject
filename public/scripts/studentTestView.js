@@ -61,8 +61,9 @@ function viewQn(quesID) {
     var questionText = document.querySelector("#question-text");
     var formElement = document.querySelector("#main form");
     formElement.name = quesID;
+    var startTime = document.getElementById('demo').textContent;
 
-    var url = `/question/${quesID}/view`;
+    var url = `/question/${quesID}/view/${startTime}`;
 
     fetch(url).then(function (res) {
         return res.json();
@@ -396,6 +397,8 @@ document.getElementById('test-finish').addEventListener('click', function () {
             c += 1;
         }
     }
+
+
     document.getElementById('attempted-qn').textContent = a;
     document.getElementById('unattempted-qn').textContent = b;
     document.getElementById('marked-qn').textContent = c;
@@ -405,6 +408,12 @@ document.getElementById('test-finish').addEventListener('click', function () {
 
 document.getElementById('submit-test').addEventListener('click', function(){
     
+    var finishButton =  document.getElementById('finish-button');
+    var startTime = document.getElementById('demo').textContent;
+
+    finishButton.href += `/${startTime}`;
+    console.log(finishButton.href);
+    finishButton.click();
 });
 
 
@@ -433,11 +442,9 @@ function secondsToTime(secs) {
 }
 
 function countdown() {
-    //  console.log(document.getElementById('demo').innerHTML);
     var time = document.getElementById('demo').innerHTML;
     time += ':00';
     var timeArray = time.split(':');
-    //    console.log(timeArray);
     var seconds = timeToSeconds(timeArray);
 
     if (seconds == '') {
@@ -451,5 +458,8 @@ function countdown() {
     temp.innerHTML = secondsToTime(seconds);
     timeoutMyOswego = setTimeout(countdown, 1000);
 }
+
+var timeBefore = document.getElementById('demo').innerHTML;
+timeBefore += ':00';
 
 countdown();

@@ -4,10 +4,22 @@ var tests = require('./tests');
 var studentSchema = new mongoose.Schema({
     username: String,
     password: String,
-    attemptedTests:[{
+    dateOfBirth: Date,
+    email: String,
+    college: String,
+    profilePicture: String,
+    attemptedTests: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref:"tests"
-    }]
+        ref: "tests"
+    }],
+    rating: [{
+        value: Number,
+        testNo: Number,
+    }],
+    currentRating: {
+        type: Number,
+        default: 1200
+    }
 
 });
 

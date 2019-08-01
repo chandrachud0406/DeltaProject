@@ -74,6 +74,8 @@ module.exports = function (app) {
                         req.session.redirectTo = '';
                         //console.log(req.session);
                         var newUser = new Student({ username: req.body.username, password: hash });
+                        newUser.rating.push({value:1200, testNo: 0});
+                        console.log(newUser);
                         newUser.save(function (err) {
                             if (err) throw err;
                         });

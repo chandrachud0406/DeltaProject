@@ -94,3 +94,16 @@
 </body>
 
 </html>
+
+<div class="dot2" style="background: #29B999" id="attempted-qn"><%= colorCount[0] %></div>
+<p>Attempted Questions</p>
+<div class="dot2" style="background: #ED6060" id="unattempted-qn"><%= colorCount[1] %></div>
+<p>Unattempted Questions</p>
+<div class="dot2" style="background: rgb(86, 95, 184)" id="marked-qn"><%= colorCount[2] %></div>
+<p>Review Later</p>
+<div class="dot2" style="background: rgb(196, 189, 189)" id="notattempted-qn"><%= colorCount[3] %></div>
+<p>Not viewed</p>
+
+<h1>Your Score: <%= total %></h1>
+
+<a href="/test/<%= test._id %>/view/analytics"><button class="btn btn-default">View Analytics</button></a>

@@ -29,6 +29,11 @@ app.use(session({
     })
 }));
 
+// app.use(function(req, res, next) {
+//     console.log(typeof req.next);
+
+//     next();
+// });
 
 app.use(express.json());
 

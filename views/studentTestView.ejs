@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
@@ -107,10 +106,10 @@
 <body>
     <div class="grid-container">
         <header class="header" style="display: flex; justify-content: space-between;">
-            <a class="navbar-brand" href="/teacher/dashboard" style="color: white;"><img
+            <a class="navbar-brand" href="/student/dashboard" style="color: white;"><img
                     src="/styles/images/tachometer.svg" width="40" height="40"> SPEED TEST</a>
             <div class="timer" style="display: flex; justify-content: space-between; color: white;">
-                <p>Time Left : <p id="demo"> <%= test.duration %> </p>
+                <p>Time Left : <p id="demo"><%= test.duration %> </p>
                 </p>
             </div>
         </header>
@@ -120,7 +119,7 @@
                 <div class="row" id="queslist">
                     <% test.questions.forEach( function (qns, index) { %>
                     <div class="col-xs-3">
-                        <button class="dot" id="<%= qns._id %>" ><%= qns.position %></button>
+                        <button class="dot" id="<%= qns._id %>"><%= qns.position %></button>
                     </div>
                     <% }); %>
                 </div>
@@ -178,15 +177,16 @@
                     <div class="modal-body">
                         <p>The total duration of this test is <strong><%= test.duration %> hrs</strong>.</p>
                         <p>There will be only <strong><%= test.totalq - 1 %> questions</strong> in this test.</p>
-                        <p>For Single Correct type, there will <strong> +3 marks</strong> allocated for each correct
-                            answer.</p>
-                        <p>There will <strong> -1 marks</strong> allocated for each wrong answer.
+                        <p>For <strong> Single Correct type </strong> there will <strong> +3 marks</strong> allocated
+                            for each correct
+                            answer and <strong> -1 marks</strong> allocated for each wrong answer.
                         </p>
-                        <p>For Multiple Correct type, there will <strong> +4 marks</strong> allocated for each correct
-                            answer.</p>
-                        <p>There will <strong> -2 marks</strong> allocated for each wrong answer.
+                        <p>For <strong> Multiple Correct type </strong> there will <strong> +4 marks</strong> allocated
+                            for each correct
+                            answer. There will <strong> -2 marks</strong> allocated for each wrong answer.
                         </p>
-                        <p>For Numerical type, There will <strong> +3 marks</strong> allocated for each correct
+                        <p>For <strong> Numerical type </strong> there will <strong> +3 marks</strong> allocated for
+                            each correct
                             answer.</p>
                         <p>There will <strong> 0 marks</strong> allocated for each wrong answer.
                         </p>
@@ -236,7 +236,9 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" style="background: #51B7E8; color: white;"
                             data-dismiss="modal">Resume</button>
-                        <a href="/test/<%= test._id %>/view/results"><button type="button" class="btn btn-primary" id="submit-test" style="background: #4EBA6F">Submit</button></a>
+                        <button type="button" class="btn btn-primary" id="submit-test"
+                            style="background: #4EBA6F">Submit</button>
+                        <a href="/test/<%= test._id %>/view/results" id="finish-button"></a>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .details li {
+            list-style: none;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-togglable-sm shadow-lg " style="background: #0694cc;">
+        <a class="navbar-brand" href="/student/dashboard" style="color: white;"><img src="/styles/images/tachometer.svg"
+                width="40" height="40"> SPEED TEST</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="myNav">
+            <ul class="navbar nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/student/tests">My Tests</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="btn dropdown-toggle text-white" href="#" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        My Profile
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background: #0694cc;">
+                        <a class="dropdown-item text-white" href="/view/student/profile/<%= user._id %>">My Account</a>
+                        <a class="dropdown-item text-white" href="/logout">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-4 col-xs-12 col-sm-6 col-lg-4">
+                    <img src="https://www.svgimages.com/svg-image/s5/man-passportsize-silhouette-icon-256x256.png"
+                        alt="stack photo" class="img">
+                    <input type="file" value="Add profile picture">
+                </div>
+                <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8">
+                    <div class="container" style="border-bottom:1px solid black">
+                        <p>Username: <%= user.username%></p>
+                        <p>Rating: <%= user.currentRating %></p>
+                    </div>
+                    <hr>
+                    <ul class="container details">
+                        <li>
+                            <p>Date Of Birth: </p><input type="date" id="dob" value="<%= user.dateOfBirth %>">
+                        </li>
+                        <li>
+                            <p>Email: </p><input type="email" id="emailID" value="<%= user.email %>">
+                        </li>
+                        <li>
+                            <p>College: </p><input type="text" id="college" value="<%= user.college %>">
+                        </li>
+                        <button id="save-profile" name="<%= user._id %>">Save Changes</button>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <canvas id="rating-graph"></canvas>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        <script src="/scripts/studentProfile.js"></script>
+</body>
+
+</html>

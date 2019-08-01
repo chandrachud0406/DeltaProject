@@ -14,7 +14,7 @@
 
 <body style="background: #0694cc;">
     <nav class="navbar navbar-expand-md navbar-togglable-sm shadow-lg " style="background: #0694cc;">
-        <a class="navbar-brand" href="/teacher/dashboard" style="color: white;"><img src="/styles/images/tachometer.svg"
+        <a class="navbar-brand" href="/student/dashboard" style="color: white;"><img src="/styles/images/tachometer.svg"
                 width="40" height="40"> SPEED TEST</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNav">
             <span class="navbar-toggler-icon"></span>
@@ -27,13 +27,10 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="/teacher/tests">My Tests</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="/teacher/messages">My Messages</a>
-                </li>
                 <li class="nav-item dropdown">
                     <a class="btn dropdown-toggle text-white" href="#" id="dropdownMenuButton" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        My Profile
+                        My Profile 
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background: #0694cc;">
                         <a class="dropdown-item text-white" href="#">My Account</a>
@@ -44,23 +41,56 @@
         </div>
     </nav>
     <div class="container text-muted">
-        <br><br>
-        <div class="row">
-            <% tests.forEach(function(test) { %>
-            <div class="col-md-6 col-lg-3">
-                <div class="card">
-                    <div class="card-header">
-                        <p><%= test.topic %></p>
+        <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+                    aria-controls="pills-home" aria-selected="true">New Tests</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+                    aria-controls="pills-profile" aria-selected="false">Attempted Tests</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="row">
+                    <% tests.forEach(function(test) { %>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <p><%= test.topic %></p>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Questions: <%= test.totalq - 1 %></p>
+                                <p class="card-text">Duration(hh:mm): <%= test.duration %></p>
+                                <a href="/test/<%= test._id %>/view" class="btn btn-primary">Attempt Test</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <p class="card-text">Questions: <%= test.totalq - 1 %></p>
-                        <p class="card-text">Duration(hh:mm): <%= test.duration %></p>
-                        <a href="/test/<%= test._id %>/view" class="btn btn-primary">Attempt Test</a>
-                    </div>
+                    <% }); %>
                 </div>
             </div>
-            <% }); %>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <div class="row">
+                    <% attTests.forEach(function(test) { %>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card" style="background: red;">
+                            <div class="card-header">
+                                <p><%= test.topic %></p>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Questions: <%= test.totalq - 1 %></p>
+                                <p class="card-text">Duration(hh:mm): <%= test.duration %></p>
+                                <a href="/test/<%= test._id %>/view/analytics" class="btn btn-primary">View Analytics</a>
+                            </div>
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
         </div>
+        <br><br>
+
     </div>
 
 
