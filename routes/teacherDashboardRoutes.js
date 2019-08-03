@@ -40,6 +40,7 @@ module.exports = function (app) {
 
     app.get('/teacher/tests', urlEncodedParser, async function (req, res) {
         try {
+            console.log(3457);
             console.log(req.session);
             var currentUser = await Teacher.findById(req.session.user._id).populate("allTests");
             console.log(currentUser);

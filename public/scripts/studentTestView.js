@@ -1,4 +1,5 @@
 var lastClicked;
+
 document.getElementById('queslist').addEventListener('click', function (event) {
 
     console.log(event.target.textContent);
@@ -21,7 +22,7 @@ document.getElementById('queslist').addEventListener('click', function (event) {
 
 window.onload = clickFirst();
 function clickFirst() {
-
+    console.log('you clicked me first');
     var qns = document.getElementsByClassName('dot');
     //console.log(qns);
 
@@ -158,48 +159,55 @@ function setAnswerType(option) {
     var x = ``;
     if (option == "0") {
         //  console.log(option);
-        x += `<p>A) </p><input type="radio" name="op" id="op1" >
-            <p>${currentOptions[0]}</p>
-            <p>B) </p><input type="radio" name="op" id="op2" >
-            <p>${currentOptions[1]}</p>    
-            <p>C) </p><input type="radio" name="op" id="op3" >
-            <p>${currentOptions[2]}</p>    
-            <p>D) </p><input type="radio" name="op" id="op4" >
-            <p>${currentOptions[3]}</p>
-            `;
+        x += `    <div id="checkbox">
+        <input type="radio" name="op" id="op1"> 
+        <label for="op1" class="whatever optionsLine"> <span class="dot3">A</span> ${currentOptions[0]} </label>
+        <input type="radio" name="op" id="op2">
+        <label for="op2"  class="whatever optionsLine"> <span class="dot3">B</span> ${currentOptions[1]} </label>
+        <input type="radio" name="op" id="op3">
+        <label for="op3"  class="whatever optionsLine"> <span class="dot3">C</span> ${currentOptions[2]} </label>
+        <input type="radio" name="op" id="op4">
+        <label for="op4"  class="whatever optionsLine"> <span class="dot3">D</span> ${currentOptions[3]} </label>
+    </div>
+    `;
     } else if (option == "1") {
-        x += `<p>A) </p><input type="checkbox" id="op1" >
-            <p>${currentOptions[0]}</p>    
-            <p>B) </p><input type="checkbox" id="op2" >
-            <p>${currentOptions[1]}</p>    
-            <p>C) </p><input type="checkbox" id="op3" >
-            <p>${currentOptions[2]}</p>    
-            <p>D) </p><input type="checkbox" id="op4" >
-            <p>${currentOptions[3]}</p>
-            `;
+        x += `    <div id="checkbox">
+        <input type="checkbox" name="op" id="op1"> 
+        <label for="op1" class="whatever optionsLine"> <span class="dot3">A</span> ${currentOptions[0]} </label>
+        <input type="checkbox" name="op" id="op2">
+        <label for="op2"  class="whatever optionsLine"> <span class="dot3">B</span> ${currentOptions[1]} </label>
+        <input type="checkbox" name="op" id="op3">
+        <label for="op3"  class="whatever optionsLine"> <span class="dot3">C</span> ${currentOptions[2]} </label>
+        <input type="checkbox" name="op" id="op4">
+        <label for="op4"  class="whatever optionsLine"> <span class="dot3">D</span> ${currentOptions[3]} </label>
+    </div>
+    `;
     } else if (option == "2") {
         x += `<input type="number" value=${boolOptions[0]} id="op11" >
             `;
     } else if (option == "3") {
-        x += `<p>A) </p><input type="radio" name="op" id="op1" >
-            <img src="${currentImages[0]}" width="200" height="150">       
-            <p>B) </p><input type="radio" name="op" id="op2" >
-            <img src="${currentImages[1]}" width="200" height="150">
-            <p>C) </p><input type="radio" name="op" id="op3" >
-            <img src="${currentImages[2]}" width="200" height="150">
-            <p>D) </p><input type="radio" name="op" id="op4" >
-            <img src="${currentImages[3]}" width="200" height="150">
-            `;
+        x += `<div id="checkbox">
+        <input type="radio" name="op" id="op1"> 
+        <label for="op1" class="whatever optionsLine"> <span class="dot3">A</span><img src="${currentImages[0]}" width="200" height="150"></label>
+        <input type="radio" name="op" id="op2">
+        <label for="op2"  class="whatever optionsLine"> <span class="dot3">B</span><img src="${currentImages[1]}" width="200" height="150"></label>
+        <input type="radio" name="op" id="op3">
+        <label for="op3"  class="whatever optionsLine"> <span class="dot3">C</span><img src="${currentImages[2]}" width="200" height="150"></label>
+        <input type="radio" name="op" id="op4">
+        <label for="op4"  class="whatever optionsLine"> <span class="dot3">D</span><img src="${currentImages[3]}" width="200" height="150"></label>
+    </div>`;
+
     } else if (option == "4") {
-        x += `<p>A) </p><input type="checkbox" id="op1" >
-            <img src="${currentImages[0]}" width="200" height="150">       
-            <p>B) </p><input type="checkbox" id="op2" >
-            <img src="${currentImages[1]}" width="200" height="150">
-            <p>C) </p><input type="checkbox" id="op3" >
-            <img src="${currentImages[2]}" width="200" height="150">
-            <p>D) </p><input type="checkbox" id="op4" >
-            <img src="${currentImages[3]}" width="200" height="150">
-        `;
+        x += `<div id="checkbox">
+        <input type="checkbox" name="op" id="op1"> 
+        <label for="op1" class="whatever optionsLine"> <span class="dot3">A</span><img src="${currentImages[0]}" width="200" height="150"></label>
+        <input type="checkbox" name="op" id="op2">
+        <label for="op2"  class="whatever optionsLine"> <span class="dot3">B</span><img src="${currentImages[1]}" width="200" height="150"></label>
+        <input type="checkbox" name="op" id="op3">
+        <label for="op3"  class="whatever optionsLine"> <span class="dot3">C</span><img src="${currentImages[2]}" width="200" height="150"></label>
+        <input type="checkbox" name="op" id="op4">
+        <label for="op4"  class="whatever optionsLine"> <span class="dot3">D</span><img src="${currentImages[3]}" width="200" height="150"></label>
+    </div>`;
     }
     document.getElementById('answers').innerHTML = x;
 
@@ -208,6 +216,7 @@ function setAnswerType(option) {
     } else if (option == "0" || option == "1" || option == "3" || option == "4") {
         console.log(`%%%%%%%${boolOptions}`);
         setOptions();
+        myBlues();
     }
 }
 
@@ -263,8 +272,8 @@ document.querySelector('#main form').addEventListener('submit', function (event)
             if ($nextQn.length > 0) {
                 $nextQn.find('.dot').click();
             } else {
-//                document.getElementById('test-finish').click();
-                  clickFirst();
+                //                document.getElementById('test-finish').click();
+                clickFirst();
             }
 
             if (!arraysEqual(ans.answerContent, [false, false, false, false])) {
@@ -321,8 +330,8 @@ document.getElementById('review-later').addEventListener('click', function () {
             if ($nextQn.length > 0) {
                 $nextQn.find('.dot').click();
             } else {
-//                document.getElementById('test-finish').click();
-                  clickFirst();
+                //                document.getElementById('test-finish').click();
+                clickFirst();
             }
 
             if (!arraysEqual(ans.answerContent, [false, false, false, false])) {
@@ -406,9 +415,9 @@ document.getElementById('test-finish').addEventListener('click', function () {
 
 });
 
-document.getElementById('submit-test').addEventListener('click', function(){
-    
-    var finishButton =  document.getElementById('finish-button');
+document.getElementById('submit-test').addEventListener('click', function () {
+
+    var finishButton = document.getElementById('finish-button');
     var startTime = document.getElementById('demo').textContent;
 
     finishButton.href += `/${startTime}`;
@@ -462,4 +471,26 @@ function countdown() {
 var timeBefore = document.getElementById('demo').innerHTML;
 timeBefore += ':00';
 
+
+// function myBlues() {
+//     var allBlues = document.getElementsByClassName('optionsLine');
+//     console.log(allBlues);
+//     var option = [];
+
+//     for (var i = 0; i < allBlues.length; i++) {
+//         option = allBlues[i].firstElementChild;
+//         allBlues[i].addEventListener('click', function () {
+//             option[i].click();
+//         });
+//     }
+// }
+
+
+
+// $('.optionsLine').on( 'click', function(){
+//     console.log('clicke bitch');
+//     //$(this).parent().css({ background: '#bef5ff'});
+// });
+
+// $('.optionsLine').click
 countdown();

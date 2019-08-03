@@ -7,43 +7,37 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style>
-        .details li {
-            list-style: none;
-        }
-
-        li {
-            margin-bottom: 10px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/styles/viewProfile.css">
     <title>Document</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-togglable-sm shadow-lg " style="background: #0694cc;">
-        <a class="navbar-brand" href="/student/dashboard" style="color: white;"><img src="/styles/images/tachometer.svg"
-                width="40" height="40"> SPEED TEST</a>
+    <nav class="navbar navbar-expand-md navbar-togglable-sm shadow-lg " style="background: #ffffff;">
+        <a class="navbar-brand" href="/student/dashboard" style="color: #52b9e8;"><img
+                src="/styles/images/tachometer.svg" width="40" height="40"> SPEED TEST</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNav">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="myNav">
+        <div class="collapse navbar-collapse" id="myNav" style="color: #52b9e8;">
             <ul class="navbar nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/student/tests">My Tests</a>
+                    <a class="nav-link" href="/teacher/tests">My Tests</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="btn dropdown-toggle text-white" href="#" id="dropdownMenuButton" data-toggle="dropdown"
+                    <a class="btn dropdown-toggle  " href="#" id="dropdownMenuButton" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         My Profile
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background: #0694cc;">
-                        <a class="dropdown-item text-white" href="/view/student/profile/<%= user._id %>">My Account</a>
-                        <a class="dropdown-item text-white" href="/logout">Logout</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                        style="background: #52b9e8; color: #52b9e8;">
+                        <a class="dropdown-item  " href="/view/student/profile/<%= user._id %>">My Account</a>
+                        <a class="dropdown-item  " href="/logout">Logout</a>
                     </div>
                 </li>
             </ul>
         </div>
     </nav>
+
 
     <div class="container">
         <div class="jumbotron">
@@ -51,7 +45,6 @@
                 <div class="col-md-4 col-xs-12 col-sm-6 col-lg-4">
                     <img src="https://www.svgimages.com/svg-image/s5/man-passportsize-silhouette-icon-256x256.png"
                         alt="stack photo" class="img">
-                    <input type="file" value="Add profile picture">
                 </div>
                 <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8">
                     <div class="container" style="border-bottom:1px solid black">
@@ -69,11 +62,14 @@
                         <li>
                             <p>College: <%= user.college %> </p>
                         </li>
-                        <button id="save-profile" name="<%= user._id %>" style="display: none;" >Save Changes</button>
+                        <button id="save-profile" name="<%= user._id %>" style="display: none;">Save Changes</button>
                     </ul>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="margin: 30px;">
+                <div class="analytic-title" style="margin-left: 1%; font-size: 25px;">
+                    <p>Rating graphs</p>
+                </div>
                 <canvas id="rating-graph"></canvas>
             </div>
         </div>
@@ -86,6 +82,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
         <script src="/scripts/studentProfile.js"></script>
 </body>
 

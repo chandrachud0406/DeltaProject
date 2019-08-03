@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.nav-pills .nav-link.active {
+    background: #53b9e8;
+    color: white;
+}
+
+.nav-pills .nav-link:not(.active) {
+    background: white;
+    color: #53b9e8;
+}
+
+.wrapper {
+    align-self: center;
+    width: 80%;
+}
+
+
+.card-header {
+    color: white;
+    background: #53b9e8;
+}
+
+.btn.btn-primary {
+    background: #52b9e8;
+}
+
+.graphs {
+    border: 0.5px solid grey;
+    margin: 8px;
+
+}
+
+.analytic-title {
+    margin-top: 10px;
+    margin-left: 30%;
+    font-size: 30px;
+}
+

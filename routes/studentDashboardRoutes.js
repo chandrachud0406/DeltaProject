@@ -15,14 +15,14 @@ var lastClickedID;
 module.exports = function (app) {
 
     app.get('/student/dashboard', urlEncodedParser, async function (req, res) {
-        ////console.log(req.session);
+        //////console.log(req.session);
         try {
             var currentStud = await Student.findOne({ username: req.session.user.username });
-            ////console.log(currentStud);
+            //////console.log(currentStud);
 
             res.render('studentDashboard', { user: currentStud });
         } catch (err) {
-            //console.log(err);
+            ////console.log(err);
         }
     });
 
@@ -38,24 +38,24 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/view/student/profile/guest/:uid', async function(req, res){
+    app.get('/view/student/profile/guest/:uid', async function (req, res) {
         try {
-            var currentStud  = await Student.findById(req.params.uid);
+            var currentStud = await Student.findById(req.params.uid);
 
-            res.render( 'viewProfile' ,{ user: currentStud});
-            
+            res.render('viewProfile', { user: currentStud });
+
         } catch (error) {
-            
+
         }
     });
 
     app.post('/edit/student/profile/:uid', async function (req, res) {
         try {
-            console.log(req.params.uid);
-            console.log(req.body);
+            //console.log(req.params.uid);
+            //console.log(req.body);
             var currentStud = await Student.findById(req.params.uid);
 
-            console.log(currentStud);
+            //console.log(currentStud);
             currentStud.email = req.body.email;
             currentStud.dateOfBirth = req.body.dob;
             currentStud.college = req.body.college;
@@ -65,13 +65,13 @@ module.exports = function (app) {
             res.send(currentStud);
 
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     });
 
     app.get('/student/:uid/rating', async function (req, res) {
         try {
-            console.log(req.params.uid);
+            //console.log(req.params.uid);
             var currentStud = await Student.findById(req.params.uid);
             var ratings = currentStud.rating
 
@@ -90,7 +90,7 @@ module.exports = function (app) {
     });
     app.get('/student/tests', urlEncodedParser, async function (req, res) {
         try {
-            ////console.log(req.session);
+            // //console.log(req.session);
             var allTests = await Test.find({}).populate('questions');
 
             var currentStud = await Student.findById(req.session.user._id).populate('attemptedTests');
@@ -106,73 +106,51 @@ module.exports = function (app) {
             }
 
             if (doneTests.length == 0) {
-                res.render('studentTests', { tests: allTests, attTests: [] });
+                res.render('studentTests', { tests: allTests, attTests: [], user: currentStud });
             } else {
-                res.render('studentTests', { tests: newTests, attTests: doneTests });
+                res.render('studentTests', { tests: newTests, attTests: doneTests, user: currentStud });
             }
         }
         catch (err) {
-            //console.log(err);
+            ////console.log(err);
         }
     });
 
 
-
-    // app.get('/test/create', urlEncodedParser, async function (req, res) {
-    //     try {
-    //         ////console.log(req.session);
-
-    //         var userID = req.session.user._id;
-    //         var currentUser = await Teacher.findById(userID).populate("tests");
-    //         var newTest = await Test.create({ topic: 'test topic' });
-
-    //         currentUser.allTests.push(newTest);
-
-    //         var currentUser = await currentUser.save();
-    //         ////console.log(currentUser);
-
-    //         res.redirect(`/test/${newTest._id}/edit`)
-
-    //     } catch (err) {
-    //         //console.log(err);
-    //     }
-    // });
-
     app.get('/test/:tid/view', urlEncodedParser, async function (req, res) {
         try {
+            console.log('viewd  test');
             lastClickedID = null;
-            //console.log('view test');
+            ////console.log('view test');
             //var userID = req.session.user._id;
             //var currentUser = await Teacher.findById(userID).populate("tests");
-            ////console.log(req.params.tid);
+            //////console.log(req.params.tid);
             var currentTest = await Test.findById(req.params.tid).populate("questions");
             var currentStud = await Student.findById(req.session.user._id);
-            currentStud.attemptedTests.push(currentTest._id);
-            // var filledUsers = [];
+            var studentArray = currentTest.attemptedUsers;
 
-            // for (var i = 0; i < currentTest.attemptedUsers.length; i++) {
-            //     filledUsers.push(currentTest.attemptedUsers.user.username);
-            // }
+            var boolValue = false;
+            console.log(studentArray);
+            for (var i = 0; i < studentArray.length; i++) {
+                if (JSON.stringify(studentArray[i]) == JSON.stringify(currentStud._id)) {
+                    boolValue = true;
+                }
+            }
 
-            //            if (!currentTest.attemptedUsers.includes(req.session.user.username)) {
-            //        currentTest.attemptedUsers.push({ user: req.session.user._id, marks: 0 });
-
-            //      currentTest.markModified('attemptedUsers');
-
-            //    currentTest = await currentTest.save();
+            if (!boolValue) {
+                currentStud.attemptedTests.push(currentTest._id);
+                currentTest.attemptedUsers.push(currentStud._id);
+            }
 
             currentStud.markModified('attemptedTests');
+            currentTest.markModified('attemptedUsers');
 
+            currentTest = await currentTest.save();
             currentStud = await currentStud.save();
-            console.log(currentStud);
+            //console.log(currentStud);
             res.render('studentTestView', { test: currentTest });
-
-            //          } else {
-            //          res.redirect(`/test/${currentTest._id}/view/analytics`);
-            //        }
-
         } catch (error) {
-            //console.log(error);
+            ////console.log(error);
         }
     });
 
@@ -185,13 +163,13 @@ module.exports = function (app) {
 
     app.get('/question/:qid/view/:time', async function (req, res) {
         try {
-            //console.log('navigated to question');
+            ////console.log('navigated to question');
 
             var currentTime = req.params.time;
 
             if (currentTime.length == 5) {
                 currentTime += ':00';
-                ////console.log(currentTime);    
+                //////console.log(currentTime);    
             }
 
             var currentQues = await Ques.findById(req.params.qid);
@@ -203,7 +181,7 @@ module.exports = function (app) {
                 currentQues.answers.push(currentAns._id);
             }
 
-            // //console.log(`$$$$$${lastClickedID}`);
+            // ////console.log(`$$$$$${lastClickedID}`);
             if (lastClickedID !== null) {
                 var lastAns = await Ans.findById(lastClickedID);
                 var timeString = currentTime;
@@ -211,11 +189,11 @@ module.exports = function (app) {
                 var timeArray1 = timeString1.split(':');
                 var timeArray = timeString.split(':');
 
-                ////console.log(timeToSeconds(timeArray1) - timeToSeconds(timeArray));
+                //////console.log(timeToSeconds(timeArray1) - timeToSeconds(timeArray));
 
                 lastAns.timeSpent += (timeToSeconds(timeArray1) - timeToSeconds(timeArray));
                 lastAns = await lastAns.save();
-                ////console.log(lastAns);
+                //////console.log(lastAns);
             }
 
             currentAns.color = 'rgb(237, 96, 96)';
@@ -224,12 +202,12 @@ module.exports = function (app) {
 
             var currentQues = await currentQues.save();
             var currentAns = await currentAns.save();
-            ////console.log(currentQues);
-            //console.log(currentAns);
+            //////console.log(currentQues);
+            ////console.log(currentAns);
             res.send({ qns: currentQues, ans: currentAns });
 
         } catch (error) {
-            //console.log(error);
+            ////console.log(error);
         }
     });
     function arraysEqual(arr1, arr2) {
@@ -249,7 +227,7 @@ module.exports = function (app) {
 
     app.post('/question/:qid/view/save', async function (req, res) {
         try {
-            //console.log('saved answer');
+            ////console.log('saved answer');
             var currentQues = await Ques.findById(req.params.qid);
 
             var currentAns = await Ans.findOne({ user: req.session.user._id, parentQn: req.params.qid });
@@ -272,25 +250,25 @@ module.exports = function (app) {
             currentQues.markModified('answers');
             currentAns.markModified('answerContent');
 
-            ////console.log(currentAns);
+            //////console.log(currentAns);
             currentQues.save().then(function (user) {
                 currentAns.save().then(function (user) {
-                    ////console.log(user);
+                    //////console.log(user);
                 });
             });
 
-            ////console.log(currentAns);
-            ////console.log(currentQues);
+            //////console.log(currentAns);
+            //////console.log(currentQues);
             res.send(currentAns);
 
         } catch (error) {
-            //console.log(error);
+            ////console.log(error);
         }
     });
 
     app.post('/question/:qid/view/review', async function (req, res) {
         try {
-            //console.log('saved answer and marked for review');
+            ////console.log('saved answer and marked for review');
             var currentQues = await Ques.findById(req.params.qid);
             var currentAns = await Ans.findOne({ user: req.session.user._id, parentQn: req.params.qid });
 
@@ -313,25 +291,25 @@ module.exports = function (app) {
             currentQues.markModified('answers');
             currentAns.markModified('answerContent');
 
-            ////console.log(currentAns);
+            //////console.log(currentAns);
             currentQues.save().then(function (user) {
                 currentAns.save().then(function (user) {
-                    ////console.log(user);
+                    //////console.log(user);
                 });
             });
 
-            ////console.log(currentAns);
-            ////console.log(currentQues);
+            //////console.log(currentAns);
+            //////console.log(currentQues);
             res.send(currentAns);
 
         } catch (error) {
-            //console.log(error);
+            ////console.log(error);
         }
     });
 
     app.post('/question/:qid/view/clear', async function (req, res) {
         try {
-            //console.log('cleared selection');
+            ////console.log('cleared selection');
             var currentQues = await Ques.findById(req.params.qid);
             var currentAns = await Ans.findOne({ user: req.session.user._id, parentQn: req.params.qid });
 
@@ -354,19 +332,19 @@ module.exports = function (app) {
             currentQues.markModified('answers');
             currentAns.markModified('answerContent');
 
-            ////console.log(currentAns);
+            //////console.log(currentAns);
             currentQues.save().then(function (user) {
                 currentAns.save().then(function (user) {
-                    ////console.log(user);
+                    //////console.log(user);
                 });
             });
 
-            ////console.log(currentAns);
-            ////console.log(currentQues);
+            //////console.log(currentAns);
+            //////console.log(currentQues);
             res.send(currentAns);
 
         } catch (error) {
-            //console.log(error);
+            ////console.log(error);
         }
     });
 
@@ -384,11 +362,11 @@ module.exports = function (app) {
                 var timeString1 = lastAns.startTime;
                 var timeArray1 = timeString1.split(':');
                 var timeArray = timeString.split(':');
-                //console.log(timeToSeconds(timeArray1) - timeToSeconds(timeArray));
+                ////console.log(timeToSeconds(timeArray1) - timeToSeconds(timeArray));
 
                 lastAns.timeSpent += (timeToSeconds(timeArray1) - timeToSeconds(timeArray));
                 lastAns = await lastAns.save();
-                //console.log(lastAns);
+                ////console.log(lastAns);
             }
             for (var i = 0; i < currentTest.questions.length; i++) {
                 var currentAns = Ans.findOne({ user: currentStud._id, parentQn: currentTest.questions[i]._id });
@@ -396,13 +374,13 @@ module.exports = function (app) {
             }
 
             currentAnswer = await Promise.all(currentAnswer);
-            console.log(currentAnswer);
+            //console.log(currentAnswer);
 
             var totalMarks = 0;
             for (var i = 0; i < currentAnswer.length; i++) {
                 totalMarks += currentTest.questions[i].marksPerCA;
                 if (currentAnswer[i] !== null) {
-                    ////console.log(currentAns);
+                    //////console.log(currentAns);
                     if (currentAnswer[i].status == 1) {
                         total += currentTest.questions[i].marksPerCA;
                     } else if (currentAnswer[i].status == -1) {
@@ -452,17 +430,18 @@ module.exports = function (app) {
             }
 
             currentStud = await currentStud.save();
-            console.log(currentStud);
+            //console.log(currentStud);
 
-            currentTest.attemptedUsers.push({ user: currentStud._id, marks: score });
-
+            //           currentTest.attemptedUsers.push(currentStud._id);
+            currentTest.marks.push({ mark: total, parentID: currentStud._id });
             currentTest.markModified('attemptedUsers');
+            //            currentTest.markModified('marks');
             currentTest = await currentTest.save();
 
             res.render('studentTestResult', { test: currentTest, total: total, colorCount: colorCount });
 
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     });
 
@@ -484,20 +463,50 @@ module.exports = function (app) {
         return answerOptions;
     }
 
+    function secondsToTime(secs) {
+        var divisor_for_minutes = secs % (60 * 60);
+        var minutes = Math.floor(divisor_for_minutes / 60);
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+
+        var divisor_for_seconds = divisor_for_minutes % 60;
+        var seconds = Math.ceil(divisor_for_seconds);
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        return minutes + ':' + seconds;
+    }
+
     app.get('/test/:tid/view/analytics', async function (req, res) {
         try {
+            //console.log(`$%^&**`);
             var currentStud = await Student.findById(req.session.user._id);
-            var currentTest = await Test.findById(req.params.tid).populate("questions");
+            var currentTest = await Test.findById(req.params.tid).populate("questions").populate("attemptedUsers");
 
-            var attUsers = currentTest.attemptedUsers.populate("user");
-            console.log(`$$$$$${attUsers}`);
+            var attUsers = currentTest.attemptedUsers;
+            var marks = currentTest.marks;
+            var attempteUsers = [];
+            //console.log(attUsers);
+
+            for (var i = 0; i < attUsers.length; i++) {
+                for (var j = 0; j < marks.length; j++) {
+                    if (JSON.stringify(marks[j].parentID) === JSON.stringify(attUsers[i]._id)) {
+                        var leadUsers = {
+                            username: attUsers[i].username,
+                            linkID: attUsers[i]._id,
+                            score: marks[j].mark,
+                            college: attUsers[i].college
+                        };
+                        attempteUsers.push(leadUsers);
+                    }
+                }
+            }
+
             var answerArray = [];
             var statusArray = [0, 0, 0];
             var currentAnswer = [];
             var total = 0;
 
-            attUsers.sort((a, b) => (a.marks > b.marks) ? 1 : -1);
-            console.log(attUsers);
+            attempteUsers.sort((a, b) => (a.score > b.score) ? -1 : 1);
+            //console.log(attempteUsers);
             for (var i = 0; i < currentTest.questions.length; i++) {
                 var currentAns = Ans.findOne({ user: currentStud._id, parentQn: currentTest.questions[i]._id });
 
@@ -505,6 +514,7 @@ module.exports = function (app) {
                     currentAnswer.push(currentAns);
                 }
             }
+            var totalTime = 0;
             var totalMarks = 0;
             currentAnswer = await Promise.all(currentAnswer);
             for (var i = 0; i < currentTest.questions.length; i++) {
@@ -517,15 +527,20 @@ module.exports = function (app) {
                         yourAnswer: nameOptions(currentTest.questions[i].type, currentAnswer[i].answerContent),
                         status: currentAnswer[i].status,
                         marksAwarded: 0,
-                        maxMarks: currentTest.questions[i].marksPerCA
+                        maxMarks: currentTest.questions[i].marksPerCA,
+                        timeInMinutes: '00:00'
                     };
                     if (currentAnswer[i].status == 1) {
                         total += currentTest.questions[i].marksPerCA;
                         answerObj.marksAwarded = currentTest.questions[i].marksPerCA;
                         statusArray[0] += 1;
+                        answerObj.timeInMinutes = secondsToTime(currentAnswer[i].timeSpent);
+                        totalTime += currentAnswer[i].timeSpent;
                     } else if (currentAnswer[i].status == -1) {
                         total += currentTest.questions[i].marksPerWA;
                         answerObj.marksAwarded = currentTest.questions[i].marksPerWA;
+                        answerObj.timeInMinutes = secondsToTime(currentAnswer[i].timeSpent);
+                        totalTime += currentAnswer[i].timeSpent;
                         statusArray[1] += 1;
                     }
 
@@ -542,12 +557,13 @@ module.exports = function (app) {
                 answerArray.push(answerObj);
             }
 
-            //console.log(statusArray);
-            res.render('studentTestAnalytics', { answerArray: answerArray, total: total, totalMarks: totalMarks, attUsers: attUsers });
+            totalTime = secondsToTime(totalTime);
+            res.render('studentTestAnalytics', { test: currentTest, answerArray: answerArray, total: total, totalMarks: totalMarks, attUsers: attempteUsers, totalTime: totalTime });
         } catch (error) {
-            //console.log(error);
+            ////console.log(error);
         }
     });
+
 
     app.get('/test/:tid/view/analytics/data', urlEncodedParser, async function (req, res) {
         try {
@@ -590,32 +606,15 @@ module.exports = function (app) {
                 }
             }
 
-            // for (var i = 0; i < currentTest.questions.length; i++) {
-            //     var currentAns = await Ans.findOne({ user: currentStud._id, parentQn: currentTest.questions[i]._id });
-
-            //     if (currentAns !== null) {
-            //         if (currentAns.status == 1) {
-            //             total += currentTest.questions[i].marksPerCA;
-            //             statusArray[0] += 1;
-            //             timeSpentArray[0] += currentAns.timeSpent;
-            //         } else if (currentAns.status == -1) {
-            //             total += currentTest.questions[i].marksPerWA;
-            //             statusArray[1] += 1;
-            //             timeSpentArray[1] += currentAns.timeSpent
-            //         } else if (currentAns.status == 0) {
-            //             statusArray[2] += 1;
-            //             timeSpentArray[2] += currentAns.timeSpent
-            //         }
-
-
-            //     }
+            // var timeSpentArrayInMinutes = timeSpentArray;
+            // for (var i = 0; i < timeSpentArray.length; i++) {
+            //     timeSpentArrayInMinutes[i] = secondsToTime(timeSpentArray[i]);
             // }
 
             var score = (total / totalMarks) * 100;
-            //console.log(statusArray, score);
             res.send({ timeSpentArray: timeSpentArray, statusArray: statusArray, score: score, total: total });
         } catch (error) {
-            //console.log(error);
+            console.log(error);
         }
     })
 
@@ -627,11 +626,11 @@ module.exports = function (app) {
             currentTest.duration = req.body['test-duration'];
 
             currentTest = await currentTest.save();
-            ////console.log(currentTest);
+            //////console.log(currentTest);
             res.redirect(`/test/${req.params.tid}/edit`);
 
         } catch (error) {
-            //console.log(error);
+            ////console.log(error);
         }
 
     });
@@ -642,7 +641,7 @@ module.exports = function (app) {
         if (req.session.user && req.session.user != "")
             next();
         else {
-            //console.log('error no login');
+            ////console.log('error no login');
             res.redirect('/');
         }
     }

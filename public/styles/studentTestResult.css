@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    grid-template-rows: 50px 1fr 50px;
+    grid-template-areas:
+        "header sidenav"
+        "main1 sidenav"
+        "footer sidenav";
+    height: 100vh;
+}
+
+/* Give every child element its grid name */
+.header {
+    grid-area: header;
+    background-color: #0694cc;
+}
+
+.sidenav {
+    grid-area: sidenav;
+    background-color: rgb(230, 226, 226);
+}
+
+.footer {
+    grid-area: footer;
+    background-color: #0694cc;
+}
+
+.main1 {
+    grid-area: main1;
+    background-color: white;
+}
+
+.dot {
+    height: 35px;
+    width: 35px;
+    background-color: #c4bdbd;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    margin-left: 15px;
+    margin-top: 15px;
+    display: inline-block;
+}
+
+.dot1 {
+    height: 15px;
+    width: 15px;
+    background-color: #c4bdbd;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    margin-left: 15px;
+    margin-top: 15px;
+    display: inline-block;
+}
+
+.dot:focus {
+    outline: 0 !important;
+}
+
+.dot2 {
+    height: 35px;
+    width: 35px;
+    background-color: #c4bdbd;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    margin-left: 15px;
+    margin-top: 15px;
+    display: inline-block;
+}
+
+.btn {
+    margin: 5px;
+}
+
+footer .btn {
+    width: 181px;
+    text-align: center;
+    margin: 8px;
+    padding: 5px;
+}
+
+.color-code .btn {
+    width: 221px;
+    text-align: center;
+    margin: 0.5px;
+    padding: 5px;
+}
+
+
+.card-header {
+    color: white;
+    background: #53b9e8;
+}
+
+
+.btn.btn-primary {
+    background: #52b9e8;
+}

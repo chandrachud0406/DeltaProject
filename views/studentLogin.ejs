@@ -11,21 +11,31 @@
 
 <body>
     <a href="/"><button class="login-form__button">Go Back</button></a>
-    <% if(message !== [] ) { %>
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong><%= message %></strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <% } %>
+
     <div class="login-form__logo-container">
         <form class="login-form" action="/student/login" method="POST">
             <div class="login-form__logo-container">
                 <img src="/styles/images/student.svg">
             </div>
             <div class="login-form__content">
+
                 <div class="login-form__header">Student Login</div>
+                <% if(message !== [] ) { %>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong><%= message %></strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <% } else {%>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Enter your details</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <% } %>
+
                 <input class="login-form__input" type="text" name="username" placeholder="Username">
                 <input class="login-form__input" type="password" name="password" placeholder="Password">
                 <button class="login-form__button" type="submit">Login</button>

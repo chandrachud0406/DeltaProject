@@ -1,4 +1,3 @@
-!
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,107 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style>
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 240px;
-            grid-template-rows: 50px 1fr 50px;
-            grid-template-areas:
-                "header sidenav"
-                "main1 sidenav"
-                "footer sidenav";
-            height: 100vh;
-        }
-
-        /* Give every child element its grid name */
-        .header {
-            grid-area: header;
-            background-color: #0694cc;
-        }
-
-        .sidenav {
-            grid-area: sidenav;
-            background-color: rgb(230, 226, 226);
-        }
-
-        .footer {
-            grid-area: footer;
-            background-color: #0694cc;
-        }
-
-        .main1 {
-            grid-area: main1;
-            background-color: white;
-        }
-
-        .dot {
-            height: 35px;
-            width: 35px;
-            background-color: #c4bdbd;
-            border-radius: 50%;
-            text-align: center;
-            color: white;
-            font-size: 20px;
-            margin-left: 15px;
-            margin-top: 15px;
-            display: inline-block;
-        }
-
-        .dot1 {
-            height: 15px;
-            width: 15px;
-            background-color: #c4bdbd;
-            border-radius: 50%;
-            text-align: center;
-            color: white;
-            font-size: 20px;
-            margin-left: 15px;
-            margin-top: 15px;
-            display: inline-block;
-        }
-
-        .dot:focus {
-            outline: 0 !important;
-        }
-
-        .dot2 {
-            height: 35px;
-            width: 35px;
-            background-color: #c4bdbd;
-            border-radius: 50%;
-            text-align: center;
-            color: white;
-            font-size: 20px;
-            margin-left: 15px;
-            margin-top: 15px;
-            display: inline-block;
-        }
-
-        .btn {
-            margin: 5px;
-        }
-
-        footer .btn {
-            width: 181px;
-            text-align: center;
-            margin: 8px;
-            padding: 5px;
-        }
-
-        .color-code .btn {
-            width: 221px;
-            text-align: center;
-            margin: 0.5px;
-            padding: 5px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/styles/studentTestResult.css">
     <title>Document</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-togglable-sm shadow-lg " style="background: #0694cc;">
+    <nav class="navbar navbar-expand-md navbar-togglable-sm shadow-lg " style="background: #ffffff;">
         <a class="navbar-brand" href="/student/dashboard" style="color: white;"><img src="/styles/images/tachometer.svg"
-                width="40" height="40"> SPEED TEST</a>
+                width="40" height="40"> TEST</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNav">
             <span class="navbar-toggler-icon"></span>
         </button>

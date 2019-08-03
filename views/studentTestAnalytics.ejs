@@ -7,24 +7,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style>
-        .wrapper {
-            align-self: center;
-            width: 80%;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/styles/studentTestAnalytics.css">
     <title>Exam Site</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-togglable-sm shadow-lg " style="background: #0694cc;">
+    <nav class="navbar navbar-expand-md navbar-togglable-sm shadow-lg " style="background: #ffffff;">
         <a class="navbar-brand" href="/student/dashboard" style="color: white;"><img src="/styles/images/tachometer.svg"
-                width="40" height="40"> SPEED TEST</a>
+                width="40" height="40"> TEST</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNav">
             <span class="navbar-toggler-icon"></span>
         </button>
     </nav>
-    <div class="container">
+    <div class="analytic-title">
+        <p>Hi, Here is how you performed in <span style="color: #52b9e8"><%= test.topic %></span></p>
+    </div>
+    <div class="container" style="box-shadow:0 0 2px 2px #888888; margin-top: 100px;">
         <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
@@ -39,34 +37,43 @@
                     aria-controls="pills-contact" aria-selected="false">Leaderboard</a>
             </li>
         </ul>
-        <div class="tab-content" id="pills-tabContent">
+        <div class="tab-content" id="pills-tabContent" style="margin-left: 150px;">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-
-                <div style="width: 800px; height: 800px;" style="border: black;">
-                    <canvas id="percentage-graph">
+                <div class="analytic-title" style="margin-left: 1%; font-size: 25px;">
+                    <p>Percentage of marks</p>
+                </div>
+                <div style="width: 800px; height: 400px;">
+                    <canvas id="percentage-graph" class="graphs">
 
                     </canvas>
                 </div>
-                <div style="width: 800px; height: 800px;" style="border: black;">
-                    <canvas id="correct-graph">
+                <div class="analytic-title" style="margin-left: 1%; font-size: 25px;">
+                    <p>How did you score ?</p>
+                </div>
+                <div style="width: 800px; height: 400px;">
+                    <canvas id="correct-graph" class="graphs">
 
                     </canvas>
                 </div>
-                <div style="width: 800px; height: 800px;" style="border: black;">
-                    <canvas id="time-graph">
+                <div class="analytic-title" style="margin-left: 1%; font-size: 25px;">
+                    <p>Time spent on each type of Question in(secs)</p>
+                </div>
+                <div style="width: 800px; height: 400px;">
+                    <canvas id="time-graph" class="graphs">
 
                     </canvas>
                 </div>
             </div>
             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                 <div class="wrapper">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" style="margin-bottom: 20px;">
                         <thead>
                             <tr>
                                 <th scope="col">Question No</th>
                                 <th scope="col">Correct Answer</th>
                                 <th scope="col">Your Answer</th>
                                 <th scope="col">Marks Awarded</th>
+                                <th scope="col">Time Spent</th>
                                 <th scope="col">Max Marks</th>
                             </tr>
                         </thead>
@@ -78,6 +85,7 @@
                                 <td><%= answer.rightAnswer %></td>
                                 <td><%= answer.yourAnswer %></td>
                                 <td><%= answer.marksAwarded %></td>
+                                <td><%= answer.timeInMinutes %></td>
                                 <td><%= answer.maxMarks %></td>
                             </tr>
                             <% } else if(answer.status == -1) { %>
@@ -86,6 +94,7 @@
                                 <td><%= answer.rightAnswer %></td>
                                 <td><%= answer.yourAnswer %></td>
                                 <td><%= answer.marksAwarded %></td>
+                                <td><%= answer.timeInMinutes %></td>
                                 <td><%= answer.maxMarks %></td>
                             </tr>
                             <% } else if(answer.status == 0) { %>
@@ -94,15 +103,17 @@
                                 <td><%= answer.rightAnswer %></td>
                                 <td><%= answer.yourAnswer %></td>
                                 <td><%= answer.marksAwarded %></td>
+                                <td><%= answer.timeInMinutes %></td>
                                 <td><%= answer.maxMarks %></td>
                             </tr>
                             <% } %>
                             <% }); %>
-                            <tr style="background: #c23846;">
-                                <th scope="row">Total Marks</th>
-                                <td></td>
-                                <td></td>
+                            <tr style="background: #29b35b;">
+                                <th scope="row">Total</th>
+                                <td>---</td>
+                                <td>---</td>
                                 <td><%= total %></td>
+                                <td><%= totalTime %></td>
                                 <td><%= totalMarks %></td>
                             </tr>
                         </tbody>
@@ -124,9 +135,10 @@
                             <% attUsers.forEach(function(user, index){ %>
                             <tr>
                                 <td><%= index + 1 %></td>
-                                <td><%=  user.user.username %></td>
-                                <td><%=  user.marks %></td>
-                                <td><%=  user.user.college %></td>
+                                <td><a href="/view/student/profile/guest/<%= user.linkID %>"><%=  user.username %></a>
+                                </td>
+                                <td><%=  user.score %></td>
+                                <td><%=  user.college %></td>
                             </tr>
                             <% }); %>
                         </tbody>

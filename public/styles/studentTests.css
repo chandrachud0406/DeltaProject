@@ -1,0 +1,27 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.nav-pills .nav-link.active {
+    background: #53b9e8;
+    color: white;
+}
+
+.nav-pills .nav-link:not(.active) {
+    background: white;
+    color: #53b9e8;
+}
+
+.card-header {
+    color: white;
+    background: #53b9e8;
+}
+
+.card {
+    margin: 15px 5px;
+}
+
+.btn.btn-primary {
+    background: #52b9e8;
+}
+

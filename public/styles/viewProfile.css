@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.details li {
+    list-style: none;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+.card-header {
+    color: white;
+    background: #53b9e8;
+}
+
+
+.btn.btn-primary {
+    background: #52b9e8;
+}
+
+.analytic-title {
+    margin-top: 10px;
+    margin-left: 30%;
+    font-size: 30px;
+}

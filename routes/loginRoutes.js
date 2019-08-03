@@ -40,6 +40,7 @@ module.exports = function (app) {
             for (var i = 0; i < usernames.length; i++) {
                 availUsernames.push(usernames[i].username);
             }
+            req.flash('info', 'Choose a username and password');
             res.render('studentSignup', { message: req.flash('info'), users: availUsernames });
 
         }).catch(function (err) {
@@ -51,6 +52,7 @@ module.exports = function (app) {
     //Student Login page
     app.get('/student/login', function (req, res) {
         console.log(req.flash('info'));
+        req.flash('info', 'Login here with your details');
         res.render('studentLogin', { message: req.flash('info') });
     });
 
@@ -141,6 +143,7 @@ module.exports = function (app) {
             for (var i = 0; i < usernames.length; i++) {
                 availUsernames.push(usernames[i].username);
             }
+            req.flash('info', 'Choose a username and password');
             res.render('teacherSignup', { message: req.flash('info'), users: availUsernames });
 
         }).catch(function (err) {
@@ -151,6 +154,7 @@ module.exports = function (app) {
 
     //Teacher Login page
     app.get('/teacher/login', function (req, res) {
+        req.flash('info', 'Login here with your details');
         res.render('teacherLogin', { message: req.flash('info') });
     });
 
@@ -183,7 +187,7 @@ module.exports = function (app) {
                 res.redirect('/teacher/login');
             }
             else {
-                req.flash('info', 'username already exists');
+                req.flash('info', 'Username already exists');
                 res.redirect('/teacher/signup');
             }
         });
@@ -210,7 +214,6 @@ module.exports = function (app) {
                             })
 
                             console.log(req.session);
-
                             res.redirect('/teacher/dashboard');
                         }
                         else {

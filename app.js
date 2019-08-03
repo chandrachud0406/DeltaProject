@@ -29,12 +29,7 @@ app.use(session({
     })
 }));
 
-// app.use(function(req, res, next) {
-//     console.log(typeof req.next);
-
-//     next();
-// });
-
+//To use fetch post requests
 app.use(express.json());
 
 //For Flash messaging

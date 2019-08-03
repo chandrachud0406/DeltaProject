@@ -15,15 +15,16 @@ var testSchema = new mongoose.Schema({
         default: 0
     },
     attemptedUsers: [{
-        user: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "student"
-        },
-        marks: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "student"
+    }],
+    marks: [{
+        mark: {
             type: Number,
-            default: 0
-        }
+        default: 0},
+        parentID: mongoose.Schema.Types.ObjectId
     }]
+
 });
 
 module.exports = mongoose.model('tests', testSchema);

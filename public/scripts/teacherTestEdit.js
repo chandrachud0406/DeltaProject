@@ -45,6 +45,8 @@ function clickFirst() {
 function createQn() {
     var createQ = document.getElementById("create-ques");
     var quesList = document.getElementById("queslist");
+    document.querySelector('#main').setAttribute('class', 'main2');
+//    document.querySelector('#mains').setAttribute('class', 'main4');
 
     //console.log('i am here');
     // console.log(quesList.innerHTML);
@@ -80,6 +82,7 @@ function setOptions() {
 
 function viewQn(quesID) {
     //console.log(quesID);
+    document.querySelector('#main').setAttribute('class', 'main2');
     var questionSpace = document.getElementById("main");
     var questionNo = document.querySelector("#main #question-no");
     var questionTitleType = document.querySelector("#main #question-type");
@@ -174,57 +177,34 @@ function setAnswerType(option) {
     var x = ``;
     if (option == "0") {
         //  console.log(option);
-        x += `<p>A) </p><input type="radio" name="op" id="op1" >
-        <input type="text" name="option1" value="${currentOptions[0]}" >
-        <p>B) </p><input type="radio" name="op" id="op2" >
-        <input type="text" name="option2" value="${currentOptions[1]}" >    
-        <p>C) </p><input type="radio" name="op" id="op3" >
-        <input type="text" name="option3" value="${currentOptions[2]}" >    
-        <p>D) </p><input type="radio" name="op" id="op4" >
-        <input type="text" name="option4" value="${currentOptions[3]}" >
+        x += `<div class="optionsWay"> <input type="radio" name="op" id="op1" > A) <input type="text" name="option1" value="${currentOptions[0]}" ></div>
+        <div class="optionsWay"> <input type="radio" name="op" id="op2" > B) <input type="text" name="option2" value="${currentOptions[1]}" ></div>    
+        <div class="optionsWay"> <input type="radio" name="op" id="op3" > C) <input type="text" name="option3" value="${currentOptions[2]}" ></div>    
+        <div class="optionsWay"> <input type="radio" name="op" id="op4" > D) <input type="text" name="option4" value="${currentOptions[3]}" ></div>
         `;
     } else if (option == "1") {
-        x += `<p>A) </p><input type="checkbox" id="op1" >
-        <input type="text" name="option1" value="${currentOptions[0]}" >    
-        <p>B) </p><input type="checkbox" id="op2" >
-        <input type="text" name="option2" value="${currentOptions[1]}" >    
-        <p>C) </p><input type="checkbox" id="op3" >
-        <input type="text" name="option3" value="${currentOptions[2]}" >    
-        <p>D) </p><input type="checkbox" id="op4" >
-        <input type="text" name="option4" value="${currentOptions[3]}" >
+        x += `<div class="optionsWay"> <input type="checkbox" name="op" id="op1" > A) <input type="text" name="option1" value="${currentOptions[0]}" ></div>
+        <div class="optionsWay"> <input type="checkbox" name="op" id="op2" > B) <input type="text" name="option2" value="${currentOptions[1]}" ></div>    
+        <div class="optionsWay"> <input type="checkbox" name="op" id="op3" > C) <input type="text" name="option3" value="${currentOptions[2]}" ></div>    
+        <div class="optionsWay"> <input type="checkbox" name="op" id="op4" > D) <input type="text" name="option4" value="${currentOptions[3]}" ></div>
         `;
     } else if (option == "2") {
         x += `<p> Numerical </p>
         <input type="number" id="op1" value=${boolOptions[0]}>
         `;
     } else if (option == "3") {
-        x += `<p>A) </p><input type="radio" name="op" id="op1" >
-        <input type="file" class="imgfile" required/>
-        <img src="${currentImages[0]}" width="200" height="150">       
-        <p>B) </p><input type="radio" name="op" id="op2" >
-        <input type="file" class="imgfile" required/>
-        <img src="${currentImages[1]}" width="200" height="150">
-        <p>C) </p><input type="radio" name="op" id="op3" >
-        <input type="file" class="imgfile" required/>
-        <img src="${currentImages[2]}" width="200" height="150">
-        <p>D) </p><input type="radio" name="op" id="op4" >
-        <input type="file" class="imgfile" required/>
-        <img src="${currentImages[3]}" width="200" height="150">
+        x += `<div class="optionsWay"> <input type="radio" name="op" id="op1" > A)  <input type="file" class="imgfile" required/> <img src="${currentImages[0]}" width="200" height="150"> </div>
+        <div class="optionsWay"> <input type="radio" name="op" id="op2" > B)  <input type="file" class="imgfile" required/> <img src="${currentImages[1]}" width="200" height="150"> </div>    
+        <div class="optionsWay"> <input type="radio" name="op" id="op3" > C)  <input type="file" class="imgfile" required/> <img src="${currentImages[2]}" width="200" height="150"> </div>    
+        <div class="optionsWay"> <input type="radio" name="op" id="op4" > D)  <input type="file" class="imgfile" required/> <img src="${currentImages[3]}" width="200" height="150"> </div>
         `;
+
     } else if (option == "4") {
-        x += `<p>A) </p><input type="checkbox" id="op1" >
-        <input type="file" class="imgfile"  required/>
-        <img src="${currentImages[0]}" width="200" height="150">       
-        <p>B) </p><input type="checkbox" id="op2" >
-        <input type="file" class="imgfile" required/>
-        <img src="${currentImages[1]}" width="200" height="150">
-        <p>C) </p><input type="checkbox" id="op3" >
-        <input type="file" class="imgfile" required/>
-        <img src="${currentImages[2]}" width="200" height="150">
-        <p>D) </p><input type="checkbox" id="op4" >
-        <input type="file" class="imgfile" required/>
-        <img src="${currentImages[3]}" width="200" height="150">
-    `;
+        x += `<div class="optionsWay"> <input type="checkbox" name="op" id="op1" > A)  <input type="file" class="imgfile" required/> <img src="${currentImages[0]}" width="200" height="150"> </div>
+        <div class="optionsWay"> <input type="checkbox" name="op" id="op2" > B)  <input type="file" class="imgfile" required/> <img src="${currentImages[1]}" width="200" height="150"> </div>    
+        <div class="optionsWay"> <input type="checkbox" name="op" id="op3" > C)  <input type="file" class="imgfile" required/> <img src="${currentImages[2]}" width="200" height="150"> </div>    
+        <div class="optionsWay"> <input type="checkbox" name="op" id="op4" > D)  <input type="file" class="imgfile" required/> <img src="${currentImages[3]}" width="200" height="150"> </div>
+        `;
     }
     document.getElementById('answers').innerHTML = x;
     setOptions();
@@ -232,8 +212,10 @@ function setAnswerType(option) {
 
 
 document.querySelector('#main form').addEventListener('submit', function (event) {
+
     var currentForm = document.querySelector("#main form");
     var quesID = currentForm.name;
+    $('.toast').toast('show');
     var questionText = document.querySelector("#question-text").value;
     var questionType = document.querySelector("#answer-type").value;
     var images = document.querySelectorAll('input[type="file"]');
@@ -304,4 +286,3 @@ document.querySelector('#main form').addEventListener('submit', function (event)
     event.preventDefault();
 
 });
-

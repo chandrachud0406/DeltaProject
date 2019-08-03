@@ -7,63 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style>
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 240px;
-            grid-template-rows: 50px 1fr 50px;
-            grid-template-areas:
-                "header sidenav"
-                "main1 sidenav"
-                "footer sidenav";
-            height: 100vh;
-        }
-
-        /* Give every child element its grid name */
-        .header {
-            grid-area: header;
-            background-color: #0694cc;
-        }
-
-        .sidenav {
-            grid-area: sidenav;
-            background-color: rgb(230, 226, 226);
-        }
-
-        .footer {
-            grid-area: footer;
-            background-color: #0694cc;
-        }
-
-        .main1 {
-            grid-area: main1;
-            background-color: white;
-        }
-
-        .dot {
-            height: 35px;
-            width: 35px;
-            background-color: #c4bdbd;
-            border-radius: 50%;
-            text-align: center;
-            color: white;
-            font-size: 20px;
-            margin-left: 15px;
-            margin-top: 15px;
-            display: inline-block;
-        }
-
-        .dot:focus {
-            outline: 0 !important;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/styles/teacherTestEdit.css">
     <title>Document</title>
 </head>
 
 <body>
     <div class="grid-container">
         <header class="header" style="display: flex; justify-content: space-between;">
-            <a class="navbar-brand" href="/teacher/dashboard" style="color: white;"><img
+            <a class="navbar-brand" href="/teacher/dashboard" style="color: #52b9e8;"><img
                     src="/styles/images/tachometer.svg" width="40" height="40"> SPEED TEST</a>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Test
                 details</button>
@@ -100,6 +51,12 @@
             </div>
         </header>
         <aside class="sidenav">
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000"
+                style="position: absolute; top: 1rem; right: 1rem;">
+                <div class="toast-body" style="background: #52b9e8;">
+                    Changes saved.
+                </div>
+            </div>
             <div class="container">
                 <p>Questions overview:</p>
                 <div class="row" id="queslist">
@@ -111,8 +68,10 @@
                 </div>
             </div>
             <br>
-            <button type="button" name="<%= test._id %>" class="btn btn-primary" id="create-ques">Create
-                Question</button>
+            <div class="bottomButton" style="display: flex; flex-direction: column; justify-content:space-around;">
+                <button type="button" name="<%= test._id %>" class="btn btn-primary" id="create-ques">Create
+                    Question</button>
+            </div>
         </aside>
         <main class="main1" id="main">
             <div class="title_bar" style="display: flex; justify-content: space-between;">
@@ -136,10 +95,11 @@
                 </div>
             </form>
         </main>
-        <footer class="footer">
+        <footer class="footer" style="display: flex; justify-content:space-around;">
             <input type="submit" class="btn btn-primary" form="myForm" value="Save changes" />
         </footer>
     </div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"

@@ -6,109 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style>
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 240px;
-            grid-template-rows: 50px 1fr 50px;
-            grid-template-areas:
-                "header sidenav"
-                "main1 sidenav"
-                "footer sidenav";
-            height: 100vh;
-        }
-
-        /* Give every child element its grid name */
-        .header {
-            grid-area: header;
-            background-color: #0694cc;
-        }
-
-        .sidenav {
-            grid-area: sidenav;
-            background-color: rgb(230, 226, 226);
-        }
-
-        .footer {
-            grid-area: footer;
-            background-color: #0694cc;
-        }
-
-        .main1 {
-            grid-area: main1;
-            background-color: white;
-        }
-
-        .dot {
-            height: 35px;
-            width: 35px;
-            background-color: #c4bdbd;
-            border-radius: 50%;
-            text-align: center;
-            color: white;
-            font-size: 20px;
-            margin-left: 15px;
-            margin-top: 15px;
-            display: inline-block;
-        }
-
-        .dot1 {
-            height: 15px;
-            width: 15px;
-            background-color: #c4bdbd;
-            border-radius: 50%;
-            text-align: center;
-            color: white;
-            font-size: 20px;
-            margin-left: 15px;
-            margin-top: 15px;
-            display: inline-block;
-        }
-
-        .dot:focus {
-            outline: 0 !important;
-        }
-
-        .dot2 {
-            height: 35px;
-            width: 35px;
-            background-color: #c4bdbd;
-            border-radius: 50%;
-            text-align: center;
-            color: white;
-            font-size: 20px;
-            margin-left: 15px;
-            margin-top: 15px;
-            display: inline-block;
-        }
-
-        .btn {
-            margin: 5px;
-        }
-
-        footer .btn {
-            width: 181px;
-            text-align: center;
-            margin: 8px;
-            padding: 5px;
-        }
-
-        .color-code .btn {
-            width: 221px;
-            text-align: center;
-            margin: 0.5px;
-            padding: 5px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/styles/studentTestView.css">
     <title>Document</title>
 </head>
 
 <body>
     <div class="grid-container">
         <header class="header" style="display: flex; justify-content: space-between;">
-            <a class="navbar-brand" href="/student/dashboard" style="color: white;"><img
-                    src="/styles/images/tachometer.svg" width="40" height="40"> SPEED TEST</a>
-            <div class="timer" style="display: flex; justify-content: space-between; color: white;">
+            <a class="navbar-brand" href="/student/dashboard" style="color: #52b9e8;"><img
+                    src="/styles/images/tachometer.svg" width="40" height="40"> TEST</a>
+            <div class="timer" style="display: flex; justify-content: space-between; color: #52b9e8;">
                 <p>Time Left : <p id="demo"><%= test.duration %> </p>
                 </p>
             </div>
@@ -184,13 +91,13 @@
                         <p>For <strong> Multiple Correct type </strong> there will <strong> +4 marks</strong> allocated
                             for each correct
                             answer. There will <strong> -2 marks</strong> allocated for each wrong answer.
-                        </p>
-                        <p>For <strong> Numerical type </strong> there will <strong> +3 marks</strong> allocated for
-                            each correct
-                            answer.</p>
-                        <p>There will <strong> 0 marks</strong> allocated for each wrong answer.
-                        </p>
-                        <p>There will be <strong>No</strong> marks deducted for unattempted answers</p>
+                            </xp>
+                            <p>For <strong> Numerical type </strong> there will <strong> +3 marks</strong> allocated for
+                                each correct
+                                answer.</p>
+                            <p>There will <strong> 0 marks</strong> allocated for each wrong answer.
+                            </p>
+                            <p>There will be <strong>No</strong> marks deducted for unattempted answers</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
@@ -201,22 +108,21 @@
 
         <main class="main1" id="main">
             <div class="title_bar" style="display: flex; justify-content: space-between;">
-                <span id="question-no">Question No:1</span>
-                <span id="question-type">None</span>
+                <strong><span id="question-no">Question No:--</span></strong>
+                <strong><span id="question-type">None</span></strong>
             </div>
-            <hr style="border-color: blue; width: 1600px;">
-            <form action="" name="" id="myForm" style="margin: 70px 150px;">
+            <hr style="border-color: #52b9e8; width: 1600px;">
+            <form action="" name="" id="myForm" style="margin: 70px 30px;">
                 <p name="question" id="question-text" cols="90" rows="5">New question</p>
-                <br>
-                <br>
                 <div id="answers">
                 </div>
             </form>
+            <hr style="border-color: grey; width: 1600px;">
         </main>
         <footer class="footer" style="display: flex; justify-content: center;">
             <input type="submit" class="btn btn-primary" form="myForm" value="Save" />
-            <input type="button" class="btn btn-primary" id="review-later" form="myForm" value="Review Later" />
-            <input type="button" class="btn btn-primary" id="clear-selec" form="myForm" value="Clear Selection" />
+            <input type="button" class="btn btn-primary exec" id="review-later" form="myForm" value="Review Later" />
+            <input type="button" class="btn btn-primary exec" id="clear-selec" form="myForm" value="Clear Selection" />
         </footer>
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -244,6 +150,8 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -253,6 +161,15 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+        crossorigin="anonymous"></script> -->
     <script src="/scripts/studentTestView.js"></script>
 </body>
 

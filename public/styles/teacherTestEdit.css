@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    grid-template-rows: 50px 1fr 50px;
+    grid-template-areas:
+        "header sidenav"
+        "main1 sidenav"
+        "footer sidenav";
+    height: 100vh;
+}
+
+.header {
+    grid-area: header;
+    background-color: #e4e2e2;
+}
+
+.sidenav {
+    grid-area: sidenav;
+    background-color: rgb(230, 226, 226);
+}
+
+.footer {
+    grid-area: footer;
+    background-color: #c0c4c5;
+}
+
+.main1 {
+    grid-area: main1;
+    background-color: white;
+    display: none;
+}
+
+.main2 {
+    grid-area: main1;
+    background-color: white;
+    display: block;
+}
+
+.main3{
+    display: block;
+}
+
+.main4{
+    display: none;
+}
+
+.dot {
+    height: 35px;
+    width: 35px;
+    background-color: #c4bdbd;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    margin-left: 15px;
+    margin-top: 15px;
+    display: inline-block;
+    border: 0;
+
+}
+
+.dot:focus {
+    outline: 0 !important;
+}
+
+
+.card-header {
+    color: white;
+    background: #53b9e8;
+}
+
+.btn.btn-primary {
+    background: #52b9e8;
+}
+
+.optionsWay input {
+    display: inline-block;
+    padding: 8px;
+    margin: 8px;
+}
+
+.optionsWay img {
+    margin: 8px;
+}
+
+.bs-example {
+    margin-top: 20px;
+    margin-right: 20px;
+    position: absolute;
+}
